@@ -50,7 +50,7 @@ function container_exec() {
     }
 
     info "Connecting to container: ${CONTAINER_NAME} to run command: ${COMMAND}" && \
-        docker container exec -ti ${CONTAINER_NAME} ${COMMAND}
+        docker container exec ${CONTAINER_NAME} ${COMMAND}
 }
 
 function container_console() {

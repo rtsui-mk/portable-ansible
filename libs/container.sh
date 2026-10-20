@@ -39,14 +39,14 @@ function start() {
             rockylinux/rockylinux:8 tail -f /dev/null
             #alpine:latest tail -f /dev/null
     info "Installing packages" && \
-        docker container exec -ti ${CONTAINER_NAME} dnf -y install python3.12
+        docker container exec ${CONTAINER_NAME} dnf -y install python3.12
     # commented out alpine:latest based installation below
     #info "Installing packages" && \
     #    docker container exec ${CONTAINER_NAME} apk add --no-cache bash python3 ncurses
     info "Updating hosts file" && \
         IP_ADDRESS=$(ip ${CONTAINER_NAME}) && \
         sed -i "s/*${CONTAINER_NAME}/${IP_ADDRESS}  ${CONTAINER_NAME}/" etc/hosts && \
-        docker container exec -ti ${CONTAINER_NAME} \
+        docker container exec ${CONTAINER_NAME} \
             /bin/bash -c 'cat /workspace/etc/hosts >> /etc/hosts'
 }
 
@@ -77,13 +77,13 @@ function exec() {
     }
 
     info "Connecting to container: ${CONTAINER_NAME} to run command: ${COMMAND}" && \
-        docker container exec -ti ${CONTAINER_NAME} ${COMMAND}
+        docker container exec ${CONTAINER_NAME} ${COMMAND}
 }
 
 function console() {
 
     CONTAINER_NAME=${1:-}
-    docker container exec -ti ${CONTAINER_NAME} /bin/bash
+    docker container exec ${CONTAINER_NAME} /bin/bash
 }
 
 function ip() {
