@@ -2,5 +2,5 @@
 - hosts: ansible-server-v2
   tasks:
   - name: ensure latest version of ssh server
-    command: apk info openssh-server
+    command: dnf info openssh-server
   

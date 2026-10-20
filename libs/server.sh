@@ -40,7 +40,7 @@ function _setup() {
         ssh-keygen -A
 
     info "Adding user: ansible" && \
-        adduser -h /home/ansible -D ansible && \
+        useradd --create-home --home-dir /home/ansible ansible && \
         echo "ansible:ansible" | chpasswd && \
         mkdir -p /home/ansible && \
         chown ansible:ansible /home/ansible
@@ -52,7 +52,7 @@ function _setup() {
 function start() {
 
     ./libs/container.sh start ${CONTAINER_NAME}
-    ./libs/container.sh exec ${CONTAINER_NAME} apk add --no-cache openssh
+    ./libs/container.sh exec ${CONTAINER_NAME} dnf install -y openssh
     ./libs/container.sh exec ${CONTAINER_NAME} ./manage.sh server _setup
 }
 

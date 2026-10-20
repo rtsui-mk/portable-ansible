@@ -20,16 +20,22 @@ function cecho() {
 
 # Error wrapping function
 function error() {
-  cecho $COLOR_RED "[ERROR] $@"
+  # commented out cecho because tput not working on rockylinux:8
+  #cecho $COLOR_RED "[ERROR] $@"
+  echo "[ERROR] $@"
   exit 1
 }
 
 # Warning wrapping function
 function warning() {
-  cecho $COLOR_YELLOW "[WARNING] $@"
+  # commented out cecho because tput not working on rockylinux:8
+  #cecho $COLOR_YELLOW "[WARNING] $@"
+  echo "[WARNING] $@"
 }
 
 # Info wrapping function
 function info() {
-  cecho $COLOR_CYAN "[INFO] $@"
+  # commented out cecho because tput not working on rockylinux:8
+  #cecho $COLOR_CYAN "[INFO] $@"
+  echo "[INFO] $@"
 }
