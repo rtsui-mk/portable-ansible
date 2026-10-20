@@ -1,4 +1,5 @@
 #!/bin/bash
+# this file is unused
 
 set -eu
 
