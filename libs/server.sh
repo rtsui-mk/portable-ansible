@@ -40,7 +40,7 @@ function _setup() {
         ssh-keygen -A
 
     info "Adding user: ansible" && \
-        adduser -h /home/ansible -D ansible && \
+        useradd --create-home --home-dir /home/ansible ansible && \
         echo "ansible:ansible" | chpasswd && \
         mkdir -p /home/ansible && \
         chown ansible:ansible /home/ansible
