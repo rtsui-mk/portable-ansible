@@ -16,7 +16,7 @@ The result file with portable-ansible build will be available in `builds/` direc
 ```sh
 ls builds/
 
-portable-ansible-<version>-py3.tar.bz2
+portable-ansible-<version>-py3.tar.gz
 ```
 
 ## Testing

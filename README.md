@@ -10,14 +10,14 @@ All notable changes to this project are documented in the file CHANGELOG.md
 
 ## How to install and use
 
-Latest version of portable-ansible tarball (.tar.bz2) is available on
+Latest version of portable-ansible tarball (.tar.gz) is available on
 Releases page https://github.com/ownport/portable-ansible/releases
 
 ```sh
-wget https://github.com/ownport/portable-ansible/releases/download/<version>/portable-ansible-<version>-py3.tar.bz2 \
-      -O ansible.tar.bz2
+wget https://github.com/ownport/portable-ansible/releases/download/<version>/portable-ansible-<version>-py3.tar.gz \
+      -O ansible.tar.gz
 
-tar -xjf ansible.tar.bz2
+tar -xjf ansible.tar.gz
 
 python3 ansible localhost -m ping
  [WARNING]: provided hosts list is empty, only localhost is available

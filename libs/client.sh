@@ -6,7 +6,7 @@ source metadata
 source libs/console.sh
 
 CONTAINER_NAME="ansible-client"
-TARBALL="portable-ansible-${VERSION}-py3.tar.bz2"
+TARBALL="portable-ansible-${VERSION}-py3.tar.gz"
 
 function help() {
 
