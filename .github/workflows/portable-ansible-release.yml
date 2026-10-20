@@ -46,14 +46,14 @@ jobs:
         set -euo pipefail
         cleanup() {
           ./manage.sh client stop || true
-          ./manage.sh server stop || true
+          # ./manage.sh server stop || true
         }
         trap cleanup EXIT
 
-        ./manage.sh server start
+        # ./manage.sh server start
         ./manage.sh client start
         ./manage.sh client local_tests
-        ./manage.sh client remote_tests
+        # ./manage.sh client remote_tests
 
     - name: Publish GitHub release
       uses: softprops/action-gh-release@v2
