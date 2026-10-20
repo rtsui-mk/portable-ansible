@@ -36,7 +36,7 @@ function start() {
         docker run -d --name ${CONTAINER_NAME} \
             --volume "$(pwd)":/workspace \
             --workdir /workspace \
-            rockylinux/rockylinux:8 tail -f /dev/null
+            almalinux/8-base tail -f /dev/null
             #alpine:latest tail -f /dev/null
     info "Installing packages" && \
         docker container exec ${CONTAINER_NAME} dnf -y install python3.12
