@@ -8,13 +8,15 @@ The distribution contains only `ansible-base`. The extra dependencies will need 
 
 All notable changes to this project are documented in the file CHANGELOG.md
 
+This mod aims to run Kubespray on RockyLinux 8 which requires ansible <2.17 and python3.12.
+
 ## How to install and use
 
 Latest version of portable-ansible tarball (.tar.gz) is available on
-Releases page https://github.com/ownport/portable-ansible/releases
+Releases page https://github.com/rtsui-mk/portable-ansible/releases
 
 ```sh
-wget https://github.com/ownport/portable-ansible/releases/download/<version>/portable-ansible-<version>-py3.tar.gz \
+wget https://github.com/rtsui-mk/portable-ansible/releases/download/<version>/portable-ansible-<version>-py3.tar.gz \
       -O ansible.tar.gz
 
 tar -xf ansible.tar.gz
