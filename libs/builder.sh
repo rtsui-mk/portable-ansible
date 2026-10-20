@@ -6,7 +6,7 @@ source metadata
 source libs/console.sh
 
 CONTAINER_NAME="ansible-builder"
-TARBALL="portable-ansible-${VERSION}-py3.tar.bz2"
+TARBALL="portable-ansible-${VERSION}-py3.tar.gz"
 
 function help() {
 
@@ -106,7 +106,7 @@ function _tarball() {
     
     info 'Building tarball' && \
         mkdir -p "/workspace/builds" && \
-        tar cjf builds/${TARBALL} -C "/workspace/target/" ansible
+        tar czf builds/${TARBALL} -C "/workspace/target/" ansible
 }
 
 

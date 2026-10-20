@@ -6,7 +6,7 @@ source metadata
 source libs/console.sh
 
 CONTAINER_NAME="ansible-client"
-TARBALL="portable-ansible-${VERSION}-py3.tar.bz2"
+TARBALL="portable-ansible-${VERSION}-py3.tar.gz"
 
 function help() {
 
@@ -33,7 +33,7 @@ function start() {
         ./libs/container.sh exec ${CONTAINER_NAME} rm -rf /workspace/opt && \
         ./libs/container.sh exec ${CONTAINER_NAME} mkdir -p /workspace/opt && \
         ./libs/container.sh exec ${CONTAINER_NAME} \
-            tar -xjf /workspace/builds/${TARBALL} -C /workspace/opt/ && \
+            tar -xf /workspace/builds/${TARBALL} -C /workspace/opt/ && \
         ./libs/container.sh exec ${CONTAINER_NAME} \
             ln -s /workspace/opt/ansible /workspace/opt/ansible-playbook
 }

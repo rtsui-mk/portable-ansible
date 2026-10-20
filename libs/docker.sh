@@ -95,7 +95,7 @@ function client_container_prepare() {
     container_exec "ansible-client" \
         mkdir -p /workspace/opt && \
     container_exec "ansible-client" \
-        tar -xjf /workspace/builds/${TARBALL} -C /workspace/opt/ && \
+        tar -xf /workspace/builds/${TARBALL} -C /workspace/opt/ && \
     container_exec "ansible-client" \
         ln -s /workspace/opt/ansible /workspace/opt/ansible-playbook
 }
