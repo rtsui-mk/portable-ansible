@@ -89,7 +89,7 @@ function console() {
 function ip() {
 
     CONTAINER_NAME=${1:-}
-    docker inspect -f "{{ .NetworkSettings.IPAddress }}" ${CONTAINER_NAME}
+    docker inspect -f '{{range $network := index .NetworkSettings "Networks"}}{{index $network "IPAddress"}}{{end}}' ${CONTAINER_NAME}
 }
 
 $@
