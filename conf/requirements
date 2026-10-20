@@ -1,27 +1,36 @@
-#ansible-base>=2.10,<2.11
-ansible-core>=2.16,<2.17
-jinja2
-PyYAML
-paramiko
-markupsafe
-#pyasn1
-#asn1crypto
-bcrypt
-#PyNaCl
-six
+# requirements dependencies found by johnnydep, e.g.:
+#   docker run --name johnnydep -d rockylinux/rockylinux:8-minimal tail -f /dev/null
+#   docker exec johnnydep microdnf -y install python3.12 python3.12-pip
+#   docker exec johnnydep pip3 install johnnydep
+#   docker exec johnnydep johnnydep ansible==x.y.z --output-format pinned
+#   docker exec johnnydep johnnydep <dependency-library>==<dependency-version> --output-format pinned
 
-#PyYAML==5.3.1
-#paramiko==2.7.1
-#pyasn1==0.4.8
-#asn1crypto==1.3.0
-#bcrypt==3.1.7
-#cffi==1.14.0
-#PyNaCl==1.4.0
-#jinja2==2.11.2
-#six==1.15.0
-#markupsafe==1.1.1
+# check libraries support on python3 in https://pypi.org/
 
-#Jinja2
-#PyYAML
-#paramiko
-#markupsafe
+# requirements from ansible
+# ansible >= 10 & ansible-core >= 2.17 have issue: https://forum.ansible.com/t/issue-with-ansible-on-rocky-linux-8-10-python-3-12-future-feature-annotations-is-not-defined/41117/2
+ansible==9.13.0
+# update templates/ansible_cli_init.py when updating ansible-core
+# comment out https://github.com/ansible/ansible/commit/cc3f1d238cecd18f145478b23f8046cdd4275fd9
+# from https://raw.githubusercontent.com/ansible/ansible/v<version>/lib/ansible/cli/__init__.py
+# to workaround "importlib.metadata.PackageNotFoundError: jinja2" when running "python3 ansible-playbook-py3"
+ansible-core==2.16.19
+PyYAML==6.0.3
+cffi==2.1.1
+pycparser==3.11
+Jinja2==3.1.6
+MarkupSafe==3.0.4
+packaging==26.3
+resolvelib==1.0.1
+
+# requirements.txt from kubespray-2.32.0
+# Prevented passlib version conflicts
+bcrypt==5.0.0
+# Needed for community.crypto module
+cryptography==50.0.2
+# Needed for jinja2 json_query templating
+jmespath==1.1.0
+# Needed for ansible.utils.ipaddr
+netaddr==1.3.0
+# Needed for encrypt hash
+passlib==1.7.4

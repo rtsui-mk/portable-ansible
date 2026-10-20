@@ -31,13 +31,18 @@ function start() {
         error "Container name cannot be empty"
         exit 1
     }
+    # rockylinux:8 instead of alpine:latest because some libraries have platform specific distribution (e.g. musllinux v.s. manylinux)
     info "Starting docker container: ${CONTAINER_NAME}" && \
         docker run -d --name ${CONTAINER_NAME} \
             --volume "$(pwd)":/workspace \
             --workdir /workspace \
-            alpine:latest tail -f /dev/null
+            rockylinux/rockylinux:8 tail -f /dev/null
+            #alpine:latest tail -f /dev/null
     info "Installing packages" && \
-        docker container exec -ti ${CONTAINER_NAME} apk add --no-cache bash python3 ncurses
+        docker container exec -ti ${CONTAINER_NAME} dnf -y install python3.12
+    # commented out alpine:latest based installation below
+    #info "Installing packages" && \
+    #    docker container exec ${CONTAINER_NAME} apk add --no-cache bash python3 ncurses
     info "Updating hosts file" && \
         IP_ADDRESS=$(ip ${CONTAINER_NAME}) && \
         sed -i "s/*${CONTAINER_NAME}/${IP_ADDRESS}  ${CONTAINER_NAME}/" etc/hosts && \

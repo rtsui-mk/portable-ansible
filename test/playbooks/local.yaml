@@ -2,9 +2,49 @@
 - hosts: localhost
   connection: local
   tasks:
-    - name: Get details if installed packages
-      command: apk info
+    - name: Get dnf version
+      command: dnf --version
+    
+    - name: Test crypto
+      # Rocky 8 discovery picks platform-python (3.6), which cannot load the bundled cryptography
+      vars:
+        ansible_python_interpreter: /usr/bin/python3.12
+      # modules run in a separate interpreter, so expose the bundled cryptography
+      environment:
+        PYTHONPATH: /workspace/opt/ansible
+      block:
+        - name: Create key directory
+          file:
+            path: /tmp/ssl/private
+            state: directory
 
-    - name: Get process list
-      command: ps -a
+        - name: Generate an OpenSSL private key with the default values (4096 bits, RSA)
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
 
+        - name: Generate an OpenSSL private key with the default values (4096 bits, RSA) and a passphrase
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
+            passphrase: ansible
+            cipher: auto
+
+        - name: Generate an OpenSSL private key with a different size (2048 bits)
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
+            size: 2048
+
+        - name: Force regenerate an OpenSSL private key if it already exists
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
+            force: true
+
+        - name: Generate an OpenSSL private key with a different algorithm (DSA)
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
+            type: DSA
+
+        - name: Generate an OpenSSL private key with elliptic curve cryptography (ECC)
+          community.crypto.openssl_privatekey:
+            path: /tmp/ssl/private/ansible.com.pem
+            type: ECC
+            curve: secp256r1

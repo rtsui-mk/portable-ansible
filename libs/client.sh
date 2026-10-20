@@ -27,7 +27,9 @@ function start() {
 
     info "Preparing Ansible Client" && \
         ./libs/container.sh exec ${CONTAINER_NAME} \
-            apk add --no-cache openssh-client ncurses && \
+            dnf update -q -y && \
+        ./libs/container.sh exec ${CONTAINER_NAME} \
+            dnf install -y openssh-clients ncurses bzip2 && \
         ./libs/container.sh exec ${CONTAINER_NAME} rm -rf /workspace/opt && \
         ./libs/container.sh exec ${CONTAINER_NAME} mkdir -p /workspace/opt && \
         ./libs/container.sh exec ${CONTAINER_NAME} \
@@ -55,7 +57,7 @@ function console() {
 function local_tests() {
 
     ./libs/container.sh exec ${CONTAINER_NAME} \
-        python3 /workspace/opt/ansible-playbook \
+        python3.12 /workspace/opt/ansible-playbook -v \
             -i /workspace/test/hosts.yaml \
             /workspace/test/playbooks/local.yaml
 }
@@ -63,11 +65,11 @@ function local_tests() {
 function remote_tests() {
 
     ./libs/container.sh exec ${CONTAINER_NAME} \
-        python3 /workspace/opt/ansible-playbook -i /workspace/test/hosts.yaml \
+        python3.12 /workspace/opt/ansible-playbook -v -i /workspace/test/hosts.yaml \
             /workspace/test/playbooks/remote-via-ssh-key.yaml
 
     ./libs/container.sh exec ${CONTAINER_NAME} \
-        python3 /workspace/opt/ansible-playbook -i /workspace/test/hosts.yaml \
+        python3.12 /workspace/opt/ansible-playbook -v -i /workspace/test/hosts.yaml \
             /workspace/test/playbooks/remote-via-username-and-password.yaml
 }
 

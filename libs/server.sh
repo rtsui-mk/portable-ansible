@@ -52,7 +52,7 @@ function _setup() {
 function start() {
 
     ./libs/container.sh start ${CONTAINER_NAME}
-    ./libs/container.sh exec ${CONTAINER_NAME} apk add --no-cache openssh
+    ./libs/container.sh exec ${CONTAINER_NAME} dnf install -y openssh
     ./libs/container.sh exec ${CONTAINER_NAME} ./manage.sh server _setup
 }
 

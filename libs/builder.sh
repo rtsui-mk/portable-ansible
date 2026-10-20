@@ -40,7 +40,11 @@ function prepare() {
 
     echo "Preparing Ansible Builder" && \
     ./libs/container.sh exec ${CONTAINER_NAME} \
-        apk add --no-cache py3-pip py3-wheel py3-setuptools
+        dnf -y install python3.12-pip bzip2 findutils
+    # commented out alpine:latest based installation below
+    #echo "Preparing Ansible Builder" && \
+    #./libs/container.sh exec ${CONTAINER_NAME} \
+    #    apk add --no-cache py3-pip py3-wheel py3-setuptools python3-dev gcc libc-dev libffi-dev
 }
 
 function run() {
@@ -76,13 +80,16 @@ function _run() {
         pip3 install --no-deps \
              --no-compile --requirement conf/requirements \
              --target /workspace/target/ansible/
+
+    # Workaround "importlib.metadata.PackageNotFoundError: jinja2" when running "python3 ansible-playbook-py3"
+    cp "/workspace/templates/ansible_cli_init.py" "/workspace/target/ansible/ansible/cli/__init__.py"
 }
 
 function _post_clean() {
 
     info 'Removing extra dirs and files' && \
-         #rm -rf /workspace/target/ansible/*.dist-info && \
-         #rm -rf /workspace/target/ansible/*.egg-info && \
+         rm -rf /workspace/target/ansible/*.dist-info && \
+         rm -rf /workspace/target/ansible/*.egg-info && \
          rm -rf /workspace/target/ansible/*.gz && \
          rm -rf /workspace/target/ansible/*.whl && \
          # rm -rf /workspace/target/ansible/bin/ && \
